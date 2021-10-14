@@ -1,0 +1,12 @@
+html, body {
+  background: rgb(124,231,235);
+  }
+  html, body {margin: 0; height: 100%; overflow: hidden}
+
+
+  
+  
+  #scene-container {
+    width: 100vw;
+    height: 100vh;
+  }
