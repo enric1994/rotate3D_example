@@ -13,7 +13,7 @@ let renderRequested;
 let width;
 let height;
 
-var modelName = "model.glb";
+var modelName = "house.glb";
 const mixers = [];
 const clock = new THREE.Clock();
 
@@ -27,7 +27,7 @@ function init() {
   height = container.clientHeight;
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color("grey"); //("#323238");
+  scene.background = new THREE.Color("white"); //("#323238");
 
 
   createCamera();
@@ -55,21 +55,21 @@ function createCamera() {
 function createLights() {
 
   // Ambient light
-  const ambientLight = new THREE.AmbientLight( 0xffffff, .7 );
+  const ambientLight = new THREE.AmbientLight( 0xffffff, 2 );
 
   // Hemi light
-  const hemiLight = new THREE.HemisphereLight( 'white', 'orange', .7 );
+  const hemiLight = new THREE.HemisphereLight( 'white', 'orange', 2 );
 
   // Directional light 1
-  const dir1 = new THREE.DirectionalLight( 'white', 1.5 );
+  const dir1 = new THREE.DirectionalLight( 'white', 2.5 );
   dir1.position.set( 10, 10, 10 );
 
   // Directional light 2 
-  const dir2 = new THREE.DirectionalLight( 'white', 1 );
+  const dir2 = new THREE.DirectionalLight( 'white', 2);
   dir2.position.set( -10, 0, 10 );
 
   // Directional light L1
-  const dir3 = new THREE.DirectionalLight( 'white', 1.5 );
+  const dir3 = new THREE.DirectionalLight( 'white', 2.5 );
   dir3.position.set( 10, 30, -10 );
 
   //Set up shadow properties for the light
@@ -121,6 +121,8 @@ dir3.shadow.camera.right = -30;
   scene.add(hemiLight);
   scene.add( dir1 );
   scene.add( dir2 );
+  scene.add( dir3 );
+  scene.add( dir4 );
   // scene.add(dir4Helper);
   
   // scene.add( helperPointL0, pointL0 );
@@ -139,13 +141,13 @@ function loadModels(modelName) {
     model.position.set(0,0,0);
     model.scale.set(5, 5, 5);
     model.traverse( function( node ) { if ( node instanceof THREE.Mesh ) {
-      node.castShadow = true; 
-      node.receiveShadow = true;
+      node.castShadow = false; 
+      node.receiveShadow = false;
       node.flatShading = true;
       node.blending= THREE.NoBlending;
-      const newMaterial = new THREE.MeshPhongMaterial( { color:  node.material.color} );
+      // const newMaterial = new THREE.MeshPhongMaterial( { color:  node.material.color} );
       // 
-      node.material = newMaterial;
+      // node.material = newMaterial;
     
     } } );
     
@@ -207,7 +209,7 @@ function render() {
   renderRequested = false;
 
   renderer.render(scene, camera);
-  model.rotateY(0.05);
+  model.rotateY(0.001);
 }
 
 function requestRenderIfNotRequested() {
